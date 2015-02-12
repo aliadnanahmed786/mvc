@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "taskMVC", "taskMVC\taskMVC.csproj", "{012BA6E7-2280-4ACC-AF0E-53E21FFAD56B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{012BA6E7-2280-4ACC-AF0E-53E21FFAD56B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{012BA6E7-2280-4ACC-AF0E-53E21FFAD56B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{012BA6E7-2280-4ACC-AF0E-53E21FFAD56B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{012BA6E7-2280-4ACC-AF0E-53E21FFAD56B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
