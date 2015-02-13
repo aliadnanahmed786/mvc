@@ -1,0 +1,99 @@
+﻿@model List<taskMVC.taskTbl>
+
+@{
+    ViewBag.Title = "Task Management";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    
+    <style type="text/css">
+        .grid {
+            width: 100%;
+        }
+    </style>
+}
+
+<h2>Task List</h2>
+<div style="padding: 7px 0;">
+    <input type="button" value="Add New Task" onclick="OpenCreatePopup()" />
+</div>
+<div style="width: 100%;">
+    @{
+        WebGrid grid = new WebGrid(Model);
+        @grid.GetHtml(
+         tableStyle: "grid",
+         fillEmptyRows: false,
+         headerStyle: "gvHeading",
+         alternatingRowStyle: "gvAlternateRow",
+         rowStyle: "gvRow",
+         footerStyle: "gvFooter",
+
+         mode: WebGridPagerModes.All,
+         firstText: "<< First",
+         previousText: "< Prev",
+         nextText: "Next >",
+         lastText: "Last >>",
+         columns: new[] {
+         grid.Column("id",header: "ID", canSort:true),
+         grid.Column("title",header: "Title"),
+         grid.Column("dscrption", header:"Description"),
+         grid.Column("dueDate", header:"Due Date"),     
+         grid.Column("requiredHours", header: "R.H"),
+         grid.Column("prority", header:"Priority"),
+         grid.Column("id", header: "Action", canSort:false,
+
+         format: @<text>
+        @Html.Raw("<img src='/images/edit-icon.png' title='Edit' onclick='EditTask("+ item.id +")'  />")
+        @Html.Raw("<img src='/images/delete-icon.png' title='Delete' onclick='DeleteTask("+ item.id +")'  />")
+        </text>
+        )       
+     })    
+    }
+</div>
+<div id="DivToAppendPartialView"></div>
+
+
+<script type="text/javascript">
+    function EditTask(taskid) {
+        var ph = $("#DivToAppendPartialView");
+        ph.load("/Home/edit?id=" + taskid, function () {
+            ph.dialog({
+                modal: true,
+                width: 500,
+                height: 438,
+                title: "Edit Title",
+                resizable: false
+            });
+        });
+    }
+
+    function DeleteTask(taskid) {
+        debugger;
+        if (confirm("Do you want to delete task: " + taskid)) {
+            var data = { 'id': taskid }
+            $.post('/Home/Delete', data,
+            function (data) {
+                if (data == true)
+                    location = location.href;
+                else
+                    alert("Could not delete");
+            });
+        }
+    }
+
+    function OpenCreatePopup() {
+
+        var div = $("#DivToAppendPartialView");
+        ////debugger;
+        div.load("Index", function () {
+            div.dialog({
+                modal: true,
+                width: 500, 
+                height: 438,
+                title: "Add New Task",
+                resizable: false
+            });
+        });
+
+
+    }
+
+</script>

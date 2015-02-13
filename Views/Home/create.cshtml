@@ -1,0 +1,70 @@
+﻿@model taskMVC.Models.newTask
+
+@{
+    ViewBag.Title = "newTaskView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>newTaskView</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>New Task</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.taskId)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.title)
+            @Html.ValidationMessageFor(model => model.title)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.description)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.dueDate)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.requiredHours)
+            @Html.ValidationMessageFor(model => model.requiredHours)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.priority)
+            @Html.ValidationMessageFor(model => model.priority)
+        </div>
+
+
+        <p>
+            <input type="button" value="Create" onclick="SaveTask()" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Close", "Index")
+</div>
+
+<script type="text/javascript">
+    function SaveTask() {
+        var id = $("#id").val();
+        var title = $("#title").val();
+        var description = $("#description").val();
+        var dueDate = $("#dueDate").val();
+        var rh = $("#requiredHours").val();
+        var priority = $("#priority").val();
+
+        var task = {
+            "id": id, "title": title,
+            "description": description, "dueDate": dueDate,
+            "requiredHours" : rh, "priority": priority
+        };
+
+        $.post('~/Controllers/TaskController/Create', task,
+        function (data) { if (data == 0) { location = location.href; } }, 'json');
+
+    }
+</script>
